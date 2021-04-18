@@ -27,9 +27,18 @@ class ToggleableElement extends HTMLElement {
         this.state = this.getAttribute("state");
         this.onstatechange = () => { }
 
-        this.addEventListener("click", () => {
-            this.switchState();
-        })
+        if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+            this.addEventListener("touchstart", () => {
+                this.switchState();
+            });
+        }
+        else {
+            this.addEventListener("mousedown", () => {
+                this.switchState();
+            });
+        }
+
+
     }
 
     static get observedAttributes() {
